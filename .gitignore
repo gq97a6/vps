@@ -1,0 +1,10 @@
+/docker/storage/
+.env
+log*
+pass*
+cert*
+key*
+*.log
+*.pem
+*.crt
+*.key
