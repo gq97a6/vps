@@ -1,0 +1,6 @@
+name: projects
+
+include:
+  - /own/docker/networks.yml
+
+services:

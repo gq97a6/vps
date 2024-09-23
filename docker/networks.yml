@@ -1,0 +1,19 @@
+networks:
+  portainer-nw: #172.16.1.0/24
+    external: true
+  mysql-nw: #172.16.2.0/24
+    external: true
+  nginx-nw: #172.16.3.0/24
+    external: true
+  mosquitto-nw: #172.16.4.0/24
+    external: true
+  syncthing-nw: #172.16.5.0/24
+    external: true
+  wazuh-nw: #172.16.6.0/24
+    external: true
+  develop-nw: #172.16.7.0/24
+    external: true
+  mongodb-nw: #172.16.8.0/24
+    external: true
+  search-nw: #172.16.9.0/24
+    external: true
