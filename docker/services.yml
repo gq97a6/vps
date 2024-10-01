@@ -127,9 +127,9 @@ services:
       - ./storage/syncthing/config:/config
       - ./storage/syncthing/data:/data
     environment:
-      - PUID: 1000
-      - PGID: 1000
-      - TZ: Etc/UTC
+      PUID: 1000
+      PGID: 1000
+      TZ: Etc/UTC
 
   mirotalk:
     container_name: mirotalk
@@ -154,7 +154,7 @@ services:
     networks:
       - nginx-nw
     environment:
-      - OPENAI_API_KEY: ${GPT_OPENAI_API_KEY}
-      - CODE: ${GPT_CODE}
-      - HIDE_USER_API_KEY: 1
-      - CUSTOM_MODELS: -all,chatgpt-4o-latest,gpt-4o-mini,o1-preview,o1-mini
+      OPENAI_API_KEY: ${GPT_OPENAI_API_KEY}
+      CODE: ${GPT_CODE}
+      HIDE_USER_API_KEY: 1
+      CUSTOM_MODELS: -all,chatgpt-4o-latest,gpt-4o-mini,o1-preview,o1-mini
