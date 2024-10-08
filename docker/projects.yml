@@ -4,3 +4,26 @@ include:
   - /own/docker/networks.yml
 
 services:
+  link:
+    container_name: link
+    hostname: link
+    image: gq97a6/images:link-arm-1.0.0
+    restart: unless-stopped
+    networks:
+      - nginx-nw
+      - mongodb-nw
+    volumes:
+      - /own/docker/storage/nginx/certs/hostunit.net/fullchain.pem:/opt/resources/certs/ssl/fullchain.pem
+      - /own/docker/storage/nginx/certs/hostunit.net/privkey.pem:/opt/resources/certs/ssl/privkey.pem
+    environment:
+      SERVER_DOMAIN: link.hostunit.net
+      SERVER_ORIGIN: https://link.hostunit.net
+      MONGODB_CONNECTION_STRING: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb:27017
+      TOKEN_PRIMARY_EXPIRE: 300
+      TOKEN_REFRESH_EXPIRE: 7200
+      SSL_CERT_PATH: /opt/resources/certs/ssl/fullchain.pem
+      SSL_KEY_PATH: /opt/resources/certs/ssl/privkey.pem
+      #SIGN_KEY_PATH: /opt/resources/certs/jwt/privateKey.pem
+      #VERIFY_KEY_PATH: /opt/resources/certs/jwt/publicKey.pem
+      #ENCRYPT_KEY_PATH: /opt/resources/certs/jwt/publicKey.pem
+      #DECRYPT_KEY_PATH: /opt/resources/certs/jwt/privateKey.pem
