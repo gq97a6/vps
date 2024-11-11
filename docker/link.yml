@@ -1,13 +1,13 @@
-name: projects
+name: link
 
 include:
   - /own/docker/networks.yml
 
 services:
-  link:
-    container_name: link
-    hostname: link
-    image: gq97a6/images:link-arm-1.0.0
+  link.backend:
+    container_name: link.backend
+    hostname: link.backend
+    image: gq97a6/images:link-3.0.0
     restart: unless-stopped
     networks:
       - nginx-nw
@@ -27,3 +27,11 @@ services:
       #VERIFY_KEY_PATH: /opt/resources/certs/jwt/publicKey.pem
       #ENCRYPT_KEY_PATH: /opt/resources/certs/jwt/publicKey.pem
       #DECRYPT_KEY_PATH: /opt/resources/certs/jwt/privateKey.pem
+
+  link.fronted:
+    container_name: link.frontend
+    hostname: link.frontend
+    image: gq97a6/images:link_svelte-1.0.0
+    restart: unless-stopped
+    networks:
+      - nginx-nw
