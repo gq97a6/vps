@@ -28,10 +28,10 @@ services:
       #ENCRYPT_KEY_PATH: /opt/resources/certs/jwt/publicKey.pem
       #DECRYPT_KEY_PATH: /opt/resources/certs/jwt/privateKey.pem
 
-  link.fronted:
+  link.frontend:
     container_name: link.frontend
     hostname: link.frontend
-    image: gq97a6/images:link_svelte-1.0.0
+    image: gq97a6/images:link_svelte-1.4.0
     restart: unless-stopped
     networks:
       - nginx-nw
