@@ -17,3 +17,5 @@ networks:
     external: true
   search-nw: #172.16.9.0/24
     external: true
+  gpvms-nw: #172.16.10.0/24
+    external: true
