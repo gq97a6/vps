@@ -1,0 +1,39 @@
+name: bitcoin
+
+include:
+  - ../networks.yml
+
+services:
+  bitcoin-core:
+    container_name: bitcoin-core
+    hostname: bitcoin-core
+    image: bitcoin/bitcoin:latest
+    restart: unless-stopped
+    networks:
+      - bitcoin-nw
+    ports:
+      - 10.1.0.1:8332:8332
+      - 10.1.0.1:3000:3000
+    volumes:
+      - ../storage/bitcoin/bitcoin.conf:/opt/bitcoin-28.1/bitcoin.conf
+
+  bitcoin-visualizer:
+    container_name: bitcoin-visualizer
+    image: gq97a6/bitcoin-visualizer:latest
+    restart: unless-stopped
+    networks:
+      - bitcoin-nw
+      - nginx-nw
+    ports:
+      - 444:444
+      - 3000:3000
+    volumes:
+        - ../storage/bitcoin/key.pem:/app/certs/key.pem
+        - ../storage/bitcoin/cert.pem:/app/certs/cert.pem
+    environment:
+      SERVER_PORT: 3000
+      WEB_PORT: 444
+      ZMQ_URI: tcp://bitcoin-core:28334
+      RPC_URI: http://bitcoin-core:8332
+      RPC_USERNAME: username
+      RPC_PASSWORD: password
