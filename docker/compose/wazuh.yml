@@ -1,7 +1,7 @@
 name: wazuh
 
 include:
-  - /own/docker/networks.yml
+  - ../networks.yml
 
 services:
   wazuh.manager:

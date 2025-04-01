@@ -1,7 +1,7 @@
 name: services
 
 include:
-  - /own/docker/networks.yml
+  - ../networks.yml
 
 services:
   portainer:
@@ -14,7 +14,7 @@ services:
     ports:
       - 10.1.0.1:100:9000
     volumes:
-      - ./storage/portainer:/data
+      - ../storage/portainer:/data
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     security_opt:
@@ -30,8 +30,8 @@ services:
     ports:
       - 10.1.0.1:3306:3306
     volumes:
-      - ./storage/mysql/mysql:/var/lib/mysql
-      - ./storage/mysql/my.cnf:/etc/my.cnf
+      - ../storage/mysql/mysql:/var/lib/mysql
+      - ../storage/mysql/my.cnf:/etc/my.cnf
 
   mongodb:
     container_name: mongodb
@@ -43,8 +43,8 @@ services:
     ports:
       - 10.1.0.1:27017:27017
     volumes:
-      - ./storage/mongodb/db:/data/db
-      - ./storage/mongodb/configdb:/data/configdb
+      - ../storage/mongodb/db:/data/db
+      - ../storage/mongodb/configdb:/data/configdb
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
@@ -74,7 +74,7 @@ services:
     ports:
       - 10.1.0.1:200:80
     volumes:
-      - ./storage/phpmyadmin:/etc/phpmyadmin
+      - ../storage/phpmyadmin:/etc/phpmyadmin
     extra_hosts:
       - host:host-gateway
 
@@ -89,7 +89,7 @@ services:
       - 443:443
       - 80:80
     volumes:
-      - ./storage/nginx:/etc/nginx
+      - ../storage/nginx:/etc/nginx
     tty: true
     stdin_open: true
 
@@ -108,9 +108,9 @@ services:
       - 8080:8080
       - 8081:8081
     volumes:
-      - ./storage/mosquitto/config:/mosquitto/config
-      - ./storage/mosquitto/data:/mosquitto/data
-      - ./storage/mosquitto/log:/mosquitto/log
+      - ../storage/mosquitto/config:/mosquitto/config
+      - ../storage/mosquitto/data:/mosquitto/data
+      - ../storage/mosquitto/log:/mosquitto/log
     tty: true
     stdin_open: true
 
@@ -124,8 +124,8 @@ services:
     ports:
       - 10.1.0.1:300:8384
     volumes:
-      - ./storage/syncthing/config:/config
-      - ./storage/syncthing/data:/data
+      - ../storage/syncthing/config:/config
+      - ../storage/syncthing/data:/data
     environment:
       PUID: 1000
       PGID: 1000
@@ -143,3 +143,17 @@ services:
       CODE: ${GPT_CODE}
       HIDE_USER_API_KEY: 1
       CUSTOM_MODELS: -all,chatgpt-4o-latest,gpt-4o-mini,o1-preview,o1-mini
+  
+  certbot:
+    container_name: certbot
+    hostname: certbot
+    image: certbot/dns-cloudflare
+    restart: no
+    volumes:
+      - ../storage/certbot/letsencrypt:/etc/letsencrypt
+      - ../storage/certbot/cloudflare.ini:/cloudflare.ini
+    command: >
+      renew --dns-cloudflare
+      --dns-cloudflare-credentials /cloudflare.ini
+      --dns-cloudflare-propagation-seconds 30
+      --non-interactive

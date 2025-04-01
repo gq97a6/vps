@@ -1,0 +1,65 @@
+name: gpvms
+
+include:
+  - ../networks.yml
+
+services:
+  gpvms.january:
+    container_name: gpvms.january
+    hostname: gpvms.january
+    image: gq97a6/images:debian-vm
+    restart: unless-stopped
+    networks:
+      - gpvms-nw
+    ports:
+      - 1111:22
+      - 1180:80
+    volumes:
+      - ../storage/gpvms/january:/root
+    environment:
+      ROOT_PASSWORD: wolter
+
+  gpvms.maja:
+    container_name: gpvms.maja
+    hostname: gpvms.maja
+    image: gq97a6/images:debian-vm
+    restart: unless-stopped
+    networks:
+      - gpvms-nw
+    ports:
+      - 2222:22
+      - 2280:80
+    volumes:
+      - ../storage/gpvms/maja:/root
+    environment:
+      ROOT_PASSWORD: slodka
+      
+  gpvms.michal:
+    container_name: gpvms.michal
+    hostname: gpvms.michal
+    image: gq97a6/images:debian-vm
+    restart: unless-stopped
+    networks:
+      - gpvms-nw
+    ports:
+      - 3333:22
+      - 3380:80
+    volumes:
+      - ../storage/gpvms/michal:/root
+    environment:
+      ROOT_PASSWORD: kazarnowicz
+      
+  gpvms.wojtek:
+    container_name: gpvms.wojtek
+    hostname: gpvms.wojtek
+    image: gq97a6/images:debian-vm
+    restart: unless-stopped
+    networks:
+      - gpvms-nw
+    ports:
+      - 4444:22
+      - 4480:80
+    volumes:
+      - ../storage/gpvms/wojtek:/root
+    environment:
+      ROOT_PASSWORD: ambroziak
