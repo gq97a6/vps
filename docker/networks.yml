@@ -19,3 +19,7 @@ networks:
     external: true
   gpvms-nw: #172.16.10.0/24
     external: true
+  bitcoin-nw: #172.16.11.0/24
+    external: true
+  minecraft-nw: #172.16.12.0/24
+    external: true

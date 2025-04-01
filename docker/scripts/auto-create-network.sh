@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Name of the file containing network names
-file="networks.yml"
+file="../networks.yml"
 
 # Read file and extract network names into an array
 network_names=($(grep -oP '.*-nw:' $file | tr -d ' ' | tr -d ':'))
