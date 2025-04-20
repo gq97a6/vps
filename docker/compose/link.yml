@@ -7,26 +7,17 @@ services:
   link.backend:
     container_name: link.backend
     hostname: link.backend
-    image: gq97a6/images:link-5.0.0
+    image: gq97a6/links
     restart: unless-stopped
     networks:
       - nginx-nw
       - mongodb-nw
-    volumes:
-      - ../storage/nginx/certs/hostunit.net/fullchain.pem:/opt/resources/certs/ssl/fullchain.pem
-      - ../storage/nginx/certs/hostunit.net/privkey.pem:/opt/resources/certs/ssl/privkey.pem
     environment:
       SERVER_DOMAIN: link.hostunit.net
       SERVER_ORIGIN: https://link.hostunit.net
-      MONGODB_CONNECTION_STRING: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb:27017
-      TOKEN_PRIMARY_EXPIRE: 300
-      TOKEN_REFRESH_EXPIRE: 7200
-      SSL_CERT_PATH: /opt/resources/certs/ssl/fullchain.pem
-      SSL_KEY_PATH: /opt/resources/certs/ssl/privkey.pem
-      #SIGN_KEY_PATH: /opt/resources/certs/jwt/privateKey.pem
-      #VERIFY_KEY_PATH: /opt/resources/certs/jwt/publicKey.pem
-      #ENCRYPT_KEY_PATH: /opt/resources/certs/jwt/publicKey.pem
-      #DECRYPT_KEY_PATH: /opt/resources/certs/jwt/privateKey.pem
+      QUARKUS_MONGODB_CONNECTION_STRING: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb:27017
+      JWT_TOKEN_PRIMARY_EXPIRE: 300
+      JWT_TOKEN_REFRESH_EXPIRE: 7200
 
   link.frontend:
     container_name: link.frontend
