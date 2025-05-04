@@ -28,7 +28,3 @@ services:
       PROTOCOL: udp
       ALLOW_INTERNET: false
     command: run-server
-
-#docker compose run --rm openvpn initial-configuration
-#docker compose up -d
-#docker exec -it openvpn new-client
