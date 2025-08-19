@@ -1,0 +1,20 @@
+name: nginx
+
+include:
+  - ../networks.yml
+
+services:
+  nginx:
+    container_name: nginx
+    hostname: nginx
+    image: nginx
+    restart: unless-stopped
+    networks:
+      - nginx-nw
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - ../storage/nginx:/etc/nginx
+    tty: true
+    stdin_open: true

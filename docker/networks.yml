@@ -3,27 +3,19 @@ networks:
     external: true
   mysql-nw: #172.16.2.0/24
     external: true
-  nginx-nw: #172.16.3.0/24
+  mongodb-nw: #172.16.3.0/24
     external: true
-  mosquitto-nw: #172.16.4.0/24
+  syncthing-nw: #172.16.4.0/24
     external: true
-  syncthing-nw: #172.16.5.0/24
+  nginx-nw: #172.16.5.0/24
     external: true
-  wazuh-nw: #172.16.6.0/24
+  mosquitto-nw: #172.16.6.0/24
     external: true
-  develop-nw: #172.16.7.0/24
+  minecraft-nw: #172.16.7.0/24
     external: true
-  mongodb-nw: #172.16.8.0/24
+  terraria-nw: #172.16.8.0/24
     external: true
-  search-nw: #172.16.9.0/24
+  tmp-nw: #172.16.9.0/24
     external: true
-  gpvms-nw: #172.16.10.0/24
-    external: true
-  bitcoin-nw: #172.16.11.0/24
-    external: true
-  minecraft-nw: #172.16.12.0/24
-    external: true
-  terraria-nw: #172.16.13.0/24
-    external: true
-  openvpn-nw: #172.16.14.0/24
+  librechat-nw: #172.16.10.0/24
     external: true

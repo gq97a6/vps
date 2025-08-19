@@ -1,0 +1,32 @@
+name: mysql
+
+include:
+  - ../networks.yml
+
+services:
+  mysql:
+    container_name: mysql
+    hostname: mysql
+    image: mysql
+    restart: unless-stopped
+    networks:
+      - mysql-nw
+    ports:
+      - 10.1.0.1:3306:3306
+    volumes:
+      - ../storage/mysql/mysql:/var/lib/mysql
+      - ../storage/mysql/my.cnf:/etc/my.cnf
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    hostname: phpmyadmin
+    image: phpmyadmin
+    restart: unless-stopped
+    networks:
+      - mysql-nw
+    ports:
+      - 10.1.0.1:200:80
+    volumes:
+      - ../storage/phpmyadmin:/etc/phpmyadmin
+    extra_hosts:
+      - host:host-gateway

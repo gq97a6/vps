@@ -1,0 +1,26 @@
+name: mosquitto
+
+include:
+  - ../networks.yml
+
+services:
+  mosquitto:
+    container_name: mosquitto
+    hostname: mosquitto
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    networks:
+      - mosquitto-nw
+    ports:
+      - 1883:1883
+      - 8883:8883
+      - 8884:8884
+      - 8885:8885
+      - 8080:8080
+      - 8081:8081
+    volumes:
+      - ../storage/mosquitto/config:/mosquitto/config
+      - ../storage/mosquitto/data:/mosquitto/data
+      - ../storage/mosquitto/log:/mosquitto/log
+    tty: true
+    stdin_open: true

@@ -1,0 +1,25 @@
+name: vms
+
+include:
+  - ../networks.yml
+
+services:
+  vms:
+    container_name: vms
+    hostname: vms
+    image: gq97a6/debian
+    restart: no
+    deploy:
+      resources:
+        limits:
+          memory: 20G
+    ports:
+      - 6969:22
+    environment:
+      ROOT_PASSWORD: "test"
+    tmpfs:
+      - /app/cache:size=100M,exec
+      - /tmp:size=50M
+      - /var/log:size=100M
+    tty: true
+    stdin_open: true

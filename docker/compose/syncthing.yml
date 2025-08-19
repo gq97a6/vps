@@ -1,0 +1,22 @@
+name: syncthing
+
+include:
+  - ../networks.yml
+
+services:
+  syncthing:
+    container_name: syncthing
+    hostname: syncthing
+    image: lscr.io/linuxserver/syncthing:latest
+    restart: unless-stopped
+    networks:
+      - syncthing-nw
+    ports:
+      - 10.1.0.1:300:8384
+    volumes:
+      - ../storage/syncthing/config:/config
+      - ../storage/syncthing/data:/data
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Etc/UTC

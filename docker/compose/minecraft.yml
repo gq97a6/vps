@@ -4,6 +4,22 @@ include:
   - ../networks.yml
 
 services:
+  minecraft-compact:
+    container_name: minecraft-compact
+    hostname: minecraft-compact
+    image: eclipse-temurin:8
+    restart: no
+    networks:
+      - minecraft-nw
+    ports:
+      - 25566:25565
+    working_dir: /opt/app/
+    command: java -jar forge-1.12.2-14.23.5.2847-universal.jar -Xms6000m -Xmx9000m
+    volumes:
+      - ../storage/minecraft-compact:/opt/app
+    tty: true
+    stdin_open: true
+
   minecraft:
     container_name: minecraft
     hostname: minecraft
@@ -14,11 +30,11 @@ services:
     ports:
       - 25565:25565
     volumes:
-      - ../storage/minecraft/data:/data
+      - ../storage/minecraft:/data
     environment:
       TYPE: "VANILLA"
       MEMORY: "8G"
       EULA: "TRUE"
-      VERSION: "1.16.5"
+      VERSION: "1.21.5"
     tty: true
     stdin_open: true

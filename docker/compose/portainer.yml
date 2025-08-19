@@ -1,0 +1,21 @@
+name: portainer
+
+include:
+  - ../networks.yml
+
+services:
+  portainer:
+    container_name: portainer
+    hostname: portainer
+    image: portainer/portainer-ce:latest
+    restart: unless-stopped
+    networks:
+      - portainer-nw
+    ports:
+      - 10.1.0.1:100:9000
+    volumes:
+      - ../storage/portainer:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    security_opt:
+      - no-new-privileges:true

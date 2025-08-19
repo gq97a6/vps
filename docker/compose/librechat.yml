@@ -1,0 +1,71 @@
+name: librechat
+
+include:
+  - ../networks.yml
+
+services:
+  librechat.api:
+    container_name: librechat.api
+    hostname: librechat.api
+    image: ghcr.io/danny-avila/librechat-dev:latest
+    restart: unless-stopped
+    networks:
+      - librechat-nw
+      - nginx-nw
+      - mongodb-nw
+    user: "${UID}:${GID}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - HOST=0.0.0.0
+      - NODE_ENV=production
+      - MONGO_URI=${MONGO_URI}
+      - MEILI_HOST=http://librechat.meili:7700
+      - RAG_PORT=${RAG_PORT:-8000}
+      - RAG_API_URL=http://librechat.ragapi:${RAG_PORT:-8000}
+    volumes:
+      - ../storage/librechat/api/images:/app/client/public/images
+      - ../storage/librechat/api/uploads:/app/uploads
+      - ../storage/librechat/api/logs:/app/api/logs
+      - ./.env.librechat:/app/.env:ro
+
+  librechat.meili:
+    container_name: librechat.meili
+    hostname: librechat.meili
+    image: getmeili/meilisearch:v1.12.3
+    restart: unless-stopped
+    user: "${UID}:${GID}"
+    networks:
+      - librechat-nw
+    environment:
+      - MEILI_HOST=http://librechat.meili:7700
+      - MEILI_NO_ANALYTICS=true
+    volumes:
+      - ../storage/librechat/meili:/meili_data
+
+  librechat.vectordb:
+    container_name: librechat.vectordb
+    hostname: librechat.vectordb
+    image: ankane/pgvector:latest
+    restart: unless-stopped
+    networks:
+      - librechat-nw
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - ../storage/librechat/vectordb:/var/lib/postgresql/data
+
+  librechat.ragapi:
+    container_name: librechat.ragapi
+    hostname: librechat.ragapi
+    image: ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
+    restart: unless-stopped
+    networks:
+      - librechat-nw
+    env_file:
+      - .env.librechat
+    environment:
+      - DB_HOST=librechat.vectordb
+      - RAG_PORT=${RAG_PORT:-8000}
