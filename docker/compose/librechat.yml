@@ -27,6 +27,7 @@ services:
       - ../storage/librechat/api/images:/app/client/public/images
       - ../storage/librechat/api/uploads:/app/uploads
       - ../storage/librechat/api/logs:/app/api/logs
+      - ../storage/librechat/librechat.yaml:/app/librechat.yaml
       - ./.env.librechat:/app/.env:ro
 
   librechat.meili:
