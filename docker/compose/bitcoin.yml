@@ -4,21 +4,24 @@ include:
   - ../networks.yml
 
 services:
-  bitcoin-core:
-    container_name: bitcoin-core
-    hostname: bitcoin-core
-    image: bitcoin/bitcoin:latest
+  bitcoin.core:
+    container_name: bitcoin.core
+    hostname: bitcoin.core
+    image: bitcoin/bitcoin:29
     restart: unless-stopped
     networks:
       - bitcoin-nw
     ports:
-      - 10.1.0.1:8332:8332
-      - 10.1.0.1:3000:3000
+     - 10.1.0.1:8332:8332
+     - 10.1.0.1:28332:28332
     volumes:
-      - ../storage/bitcoin/bitcoin.conf:/opt/bitcoin-28.1/bitcoin.conf
+#      - ../storage/bitcoin/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+#      - ../storage/bitcoin/data:/home/bitcoin/.bitcoin
+      - /mnt/HC_Volume_103195255/bitcoin/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - /mnt/HC_Volume_103195255/bitcoin/data:/home/bitcoin/.bitcoin
 
-  bitcoin-visualizer:
-    container_name: bitcoin-visualizer
+  bitcoin.app:
+    container_name: bitcoin.app
     image: gq97a6/bitcoin-visualizer:latest
     restart: unless-stopped
     networks:

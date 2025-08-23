@@ -1,6 +1,7 @@
 /docker/storage/
 /playground
 .env
+.env*
 log*
 pass*
 cert*
