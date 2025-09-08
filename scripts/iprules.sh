@@ -28,3 +28,6 @@ iptables -A _FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
 #Allow loopback
 iptables -A _INPUT -i lo -j ACCEPT
+
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
