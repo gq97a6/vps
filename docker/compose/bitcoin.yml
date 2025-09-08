@@ -12,13 +12,11 @@ services:
     networks:
       - bitcoin-nw
     ports:
-     - 10.1.0.1:8332:8332
-     - 10.1.0.1:28332:28332
+      - 10.1.0.1:8332:8332
+      - 10.1.0.1:28332:28332
     volumes:
-#      - ../storage/bitcoin/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
-#      - ../storage/bitcoin/data:/home/bitcoin/.bitcoin
-      - /mnt/HC_Volume_103195255/bitcoin/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
-      - /mnt/HC_Volume_103195255/bitcoin/data:/home/bitcoin/.bitcoin
+      - ../storage/bitcoin/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - ../storage/bitcoin/data:/home/bitcoin/.bitcoin
 
   bitcoin.app:
     container_name: bitcoin.app
@@ -28,15 +26,9 @@ services:
       - bitcoin-nw
       - nginx-nw
     ports:
-      - 444:444
-      - 3000:3000
-    volumes:
-        - ../storage/bitcoin/key.pem:/app/certs/key.pem
-        - ../storage/bitcoin/cert.pem:/app/certs/cert.pem
+      - 6969:6969
     environment:
-      SERVER_PORT: 3000
-      WEB_PORT: 444
-      ZMQ_URI: tcp://bitcoin-core:28334
-      RPC_URI: http://bitcoin-core:8332
+      ZMQ_URI: tcp://bitcoin.core:28332
+      RPC_URI: http://bitcoin.core:8332
       RPC_USERNAME: username
       RPC_PASSWORD: password
