@@ -29,5 +29,11 @@ iptables -A _FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 #Allow loopback
 iptables -A _INPUT -i lo -j ACCEPT
 
+#Allow ping
+iptables -A _INPUT -p icmp -j ACCEPT
+
+#Allow VPN
+iptables -A _INPUT -s 10.0.0.0/8 -j ACCEPT
+
 iptables-save > /etc/iptables/rules.v4
 ip6tables-save > /etc/iptables/rules.v6
